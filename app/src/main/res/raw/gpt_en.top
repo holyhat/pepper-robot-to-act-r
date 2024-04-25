@@ -1,0 +1,81 @@
+topic: ~gpt_en()
+
+#proposal: %start ^rand["Hello, what would you like to know?" "What can I do for you?" "Hello, how can I help you?"] ^execute(myExecutor, hello)
+#proposal: %start ^rand["Ah, you are speaking English"] ^goto(loop)
+proposal: %start ^rand["Welcome to the University of Lübeck, what can I do for you?" "Welcome to the University of Lübeck, how can I help you?"] ^execute(myExecutor, hello)
+
+proposal: %no_answer ^rand["I'm afraid I can't think of anything to say about that" "Unfortunately I have no information on this" "I'm sorry, I don't know anything about that"]
+
+proposal: %no_translation ^rand["Oh, sorry. There is nothing to translate at the moment." "I do not know what to translate"] \pau=1000\ ~new_question
+
+#proposal: %no_translation_summ ^rand["Oh, I'm sorry. Unfortunately, I cannot translate English into simple language." "Unfortunately, this does not work with English"] \pau=1000\ ~new_question
+proposal: %no_translation_summ $theme=easyLanguage
+#proposal: %no_translation_summ $themeanswer
+
+proposal: %start_from_other_language ^rand["Is there anything else I can do for you?" "What else can I do for you?" "What else can I help with?"]
+
+#proposal: %change_language $themeanswer ^endDiscuss(changeToGerman)
+proposal: %change_language $themeanswer
+
+#proposal: %tellanswer Now in English \pau=1000\ $themeanswer ^endDiscuss(changeToGerman)
+proposal: %tellanswer $themeanswer ^goto(loop)
+
+####################################################################################################
+#
+#   WÖRTERBUCH: MENSCH -> PEPPER
+#
+####################################################################################################
+
+concept:(human_greeting) [Hello "Good morning" "Good evening" "Nice to meet you"]
+
+concept:(affirmation) [Yes Sure Certainly "Yes please" "Please do"]
+
+concept:(denial) [No Nope "I do not want"]
+
+concept:(thanks) [Thanks "Thank you" "Thank you very much" Great]
+
+concept:(bye) ["That is enough" "That's enough" "See you" "Good Bye" Bye]
+
+concept:(translate) [Translate Translation]
+
+concept:(easy_language) ["Easy language" "Simple language" "{I} do not understand" "{I} don't get it" "In plain language"]
+
+concept:(robot) [Pepper Robot "Tell {me} Robot" "Tell {me} Pepper"]
+
+concept:(do_not_include) [Pepper Robot]
+
+####################################################################################################
+#
+#   WÖRTERBUCH: PEPPER -> MENSCH
+#
+####################################################################################################
+
+concept:(pepper_greeting) ^rand[Hello "Good day" Hi "Nice to meet you" "Nice to see you"]
+
+concept:(thinking) ^rand["Let me think" "Just a moment please" "Good question" "With pleasure"]
+
+concept:(new_question) ^rand["Is there anything else you would like to know?" "Is there anything else I can help you with?" "Is there anything else I can do for you?" "Would you like to know more?" "What else would you like to know?" "What else can I do for you?"]
+
+####################################################################################################
+#
+#   DIALOGLOGIK
+#
+####################################################################################################
+
+u:(e:Dialog/NotUnderstood) I did not understand that.
+u:(e:Dialog/SpeakFailure) Unfortunately I cannot answer that.
+u:(e:Dialog/Fallback) Fallback triggered.
+
+u:(~human_greeting) ~pepper_greeting $theme=test ^execute(myExecutor, hello)
+#u:(~human_greeting) $theme=$1
+#u:(my name is _*) nice to meet you $1 $theme=$1
+
+u:({~robot} _* {~do_not_include}) %loop $theme=$1
+u:("e:themeanswer") $themeanswer
+#u:("e:themeanswer $theme==seehuman") ^rand["I see you"]
+#u:("e:themeanswer $theme<>easyLanguage $theme<>translate $theme<>answered") $themeanswer $steering="gptAnswerEN"
+
+#u:({*} ~translate {*} $theme<>translate) %translate ^rand["This is already in English"]
+#u:({*} ~translate {*} $theme<>translate) %translate ^rand["But with pleasure" Sure "No problem"] $theme=translate
+#u:("e:themeanswer $theme==translate") ^endDiscuss(changeToEnglish)
+#u:({*} ~translate {*} $theme==translate) ^rand["Das habe ich bereits übersetzt" "Schon geschehen" "Habe ich gerade gemacht"]

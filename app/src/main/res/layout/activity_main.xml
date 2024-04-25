@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewFlipper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/peppergrey"
+    android:orientation="horizontal"
+    android:padding="30dp"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayoutFlags"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/startListening"
+            android:layout_width="300dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="28dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/start_listening"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/start_listening_tooltip"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/start_listening_selector"
+            tools:srcCompat="@drawable/start_listening" />
+
+        <TextView
+            android:id="@+id/infoWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:background="@color/peppergrey"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="0dp"
+            android:text="@string/intro_welcome"
+            android:textColor="@color/pepperdarkblue"
+            android:textSize="44sp"
+            android:lineSpacingExtra="6sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/logoUniversity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:contentDescription="@string/image_description"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/infoWelcome"
+            app:srcCompat="@drawable/logo_uni_luebeck"
+            tools:srcCompat="@drawable/logo_uni_luebeck" />
+
+        <ImageButton
+            android:id="@+id/stopTalking2"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="300dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/stop_talking"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/stop_talking_tooltip"
+            app:layout_constraintEnd_toStartOf="@+id/thinking2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logoUniversity"
+            app:srcCompat="@drawable/stop_talking_selector"
+            tools:srcCompat="@drawable/stop_talking" />
+
+        <ImageButton
+            android:id="@+id/thinking2"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="300dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/thinking"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/thinking_tooltip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/stopTalking2"
+            app:layout_constraintTop_toBottomOf="@+id/logoUniversity"
+            app:srcCompat="@drawable/thinking_selector"
+            tools:srcCompat="@drawable/thinking" />
+
+        <TextView
+            android:id="@+id/infoListening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:background="@color/peppergrey"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="0dp"
+            android:text="@string/intro_listening"
+            android:textColor="@color/pepperdarkblue"
+            android:textSize="33sp"
+            android:lineSpacingExtra="6sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/stopTalking"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="15dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/stop_talking"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/stop_talking_tooltip"
+            app:layout_constraintBottom_toTopOf="@+id/results"
+            app:layout_constraintEnd_toStartOf="@+id/stopListening"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stop_talking_selector"
+            tools:srcCompat="@drawable/stop_talking" />
+
+        <ImageButton
+            android:id="@+id/stopListening"
+            android:layout_width="100dp"
+            android:layout_marginTop="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/stop_listening"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/stop_listening_tooltip"
+            app:layout_constraintBottom_toTopOf="@+id/results"
+            app:layout_constraintEnd_toStartOf="@+id/flagDeSmall"
+            app:layout_constraintStart_toEndOf="@+id/stopTalking"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stop_listening_selector"
+            tools:srcCompat="@drawable/stop_listening" />
+
+        <ImageButton
+            android:id="@+id/flagDeSmall"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="15dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/flag_de"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/flag_de_tooltip"
+            app:layout_constraintBottom_toTopOf="@+id/results"
+            app:layout_constraintEnd_toStartOf="@+id/flagEnSmall"
+            app:layout_constraintStart_toEndOf="@+id/stopListening"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/flag_de_selector"
+            tools:srcCompat="@drawable/flag_de" />
+
+        <ImageButton
+            android:id="@+id/flagEnSmall"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="15dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/flag_en"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/flag_en_tooltip"
+            app:layout_constraintBottom_toTopOf="@+id/results"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/flagDeSmall"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/flag_en_selector"
+            tools:srcCompat="@drawable/flag_en" />
+
+        <TextView
+            android:id="@+id/results"
+            android:layout_width="774dp"
+            android:layout_height="240dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:padding="3dp"
+            android:scrollbars="vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stopTalking" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
+            android:minWidth="60dp"
+            android:minHeight="60dp"
+            android:progress="0"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/results"
+            app:layout_constraintBottom_toBottomOf="@+id/results"/>
+
+        <ImageButton
+            android:id="@+id/thinking"
+            android:layout_width="150dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/thinking"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:tooltipText="@string/thinking_tooltip"
+            app:layout_constraintBottom_toTopOf="@+id/logoAndClaim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/results"
+            app:srcCompat="@drawable/thinking_selector"
+            tools:srcCompat="@drawable/thinking" />
+
+        <RelativeLayout
+            android:id="@+id/logoAndClaim"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/thinking">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="0dp"
+                android:contentDescription="@string/image_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/claim"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_app_pepper"
+                tools:srcCompat="@drawable/logo_app_pepper" />
+
+            <TextView
+                android:id="@+id/claim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/peppergrey"
+                android:padding="0dp"
+                android:text="@string/claim_text"
+                android:textColor="@color/pepperred"
+                android:textSize="18sp"
+                android:translationX="50dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/logo"
+                app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ViewSwitcher>

@@ -1,0 +1,298 @@
+topic: ~gpt_de()
+
+# ACT-R
+proposal: %start Herzlich Willkommen im Bürgeramt. Ich bin Pepper und meine Aufgabe ist es, Sie bei ihrem Besuch hier zu unterstützen. $steering=welcoming $theme=checkingIntention
+# neutral
+proposal: %welcoming $steering=? Wie kann ich Ihnen helfen? ^goto(checking_intention)
+proposal: %intention Haben Sie sich vorab schon informiert ^goto(intention_answer)
+proposal: %requirements Um einen Reisepass zu beantragen, benötigen Sie einen aktuellen Personalausweis oder ihren alten, noch gültigen Reisepass, aktuelle biometrische Passbilder und ihre Geburtsurkunde. ^goto(checking_requirements)
+#proposal: %complication \pau=1000\ Willkommen zurück. ^execute(myExecutor, g16) ^goto(welcome_back)
+proposal: %complication \pau=1000\ Willkommen zurück. ^goto(welcome_back)
+proposal: %finish_requirements Vielen Dank für das Gespräch und auf Wiedersehen ^execute(myExecutor, g16)
+# content
+proposal: %welcoming_content $steering=? Freut mich, Sie kennenzulernen. ^execute(myExecutor, g1) ^goto(checking_intention_content)
+proposal: %intention_content Haben Sie sich vorab schon informiert ^goto(intention_answer_content)
+proposal: %requirements_content Um einen Reisepass zu beantragen, benötigen Sie einen aktuellen Personalausweis oder ihren alten, noch gültigen Reisepass, aktuelle biometrische Passbilder und ihre Geburtsurkunde. ^goto(checking_requirements_content)
+#proposal: %complication_content \pau=1000\ Willkommen zurück. ^execute(myExecutor, g6) ^goto(welcome_back_content)
+proposal: %complication_content \pau=1000\ Willkommen zurück. ^goto(welcome_back_content)
+proposal: %finish_requirements_content Es hat mich gefreut, dass ich Ihnen bei Ihrem Anliegen helfen konnte. Ich wünsche Ihnen alles Gute und einen schönen Tag. ^execute(myExecutor, g6) Auf Wiedersehen.
+# joyful
+proposal: %welcoming_joyful $steering=? Sie sehen fröhlich aus. Es freut mich, Sie kennenzulernen. ^execute(myExecutor, g7) ^goto(checking_intention_joyful)
+proposal: %intention_joyful Ich will auch mal wieder auf Reisen gehen. Wissen Sie schon, ^goto(intention_answer_joyful)
+proposal: %requirements_joyful Um einen Reisepass zu beantragen, benötigen wir folgendes: \pau=2000\ Ihren aktuellen Personalausweis oder ihren alten, noch gültigen Reisepass, ein aktuelles biometrisches Passbild und ihre Geburtsurkunde. ^goto(checking_requirements_joyful)
+proposal: %complication_joyful \pau=1000\ Willkommen zurück. ^execute(myExecutor, g22) Schön, dass Sie wieder da sind. ^goto(welcome_back_joyful)
+proposal: %finish_requirements_joyful Ich bedanke mich für das schöne Gespräch und wünsche Ihnen alles Gute auf Ihren Reisen. ^execute(myExecutor, g11) Auf Wiedersehen.
+# sad
+proposal: %welcoming_sad $steering=? Freut mich, Sie kennenzulernen. ^execute(myExecutor, g1) ^goto(checking_intention_sad)
+proposal: %intention_sad Haben Sie sich vorab schon informiert ^goto(intention_answer_sad)
+proposal: %requirements_sad Um einen Reisepass zu beantragen, benötigen wir nun einen aktuellen Personalausweis oder ihren alten, noch gültigen Reisepass, aktuelle biometrische Passbilder und ihre Geburtsurkunde. ^goto(checking_requirements_sad)
+proposal: %complication_sad \pau=1000\ Willkommen zurück. ^execute(myExecutor, g22) Schön, dass Sie wieder hier sind. ^goto(welcome_back_sad)
+proposal: %finish_requirements_sad Ich bedanke mich für die tolle Zusammenarbeit und wünsche Ihnen alles Gute. ^execute(myExecutor, g19) Auf Wiedersehen.
+# angry
+proposal: %welcoming_angry $steering=? Freut mich, Sie kennenzulernen. ^execute(myExecutor, g7) ^goto(checking_intention_angry)
+proposal: %intention_angry Haben Sie sich vorab schon informiert ^goto(intention_answer_angry)
+proposal: %requirements_angry Um einen Reisepass zu beantragen, benötigen Sie einen aktuellen Personalausweis oder ihren alten, noch gültigen Reisepass, aktuelle biometrische Passbilder und ihre Geburtsurkunde. ^goto(checking_requirements_angry)
+#proposal: %complication_angry \pau=1000\ Willkommen zurück. ^execute(myExecutor, g22) ^goto(welcome_back_angry)
+proposal: %complication_angry \pau=1000\ Willkommen zurück. ^goto(welcome_back_angry)
+proposal: %finish_requirements_angry Ich hoffe dieses Gespräch hat Ihnen nicht allzu viele Unannehmlichkeiten bereitet. ^execute(myExecutor, g22) Ich bedanke mich für die Zusammenarbeit und wünsche Ihnen noch einen schönen Tag.
+
+
+# --- alt ---
+proposal: %no_answer ^rand["Dazu fällt mir leider nichts ein" "Dazu habe ich leider keine Informationen" "Tut mir leid, dazu weiß ich nichts"]
+proposal: %no_translation ^rand["Oh, tut mir leid. Momentan gibt es nichts zu übersetzen." "Ich weiß nicht, was ich übersetzen soll"] \pau=1000\ ~new_question
+proposal: %change_language $themeanswer ^endDiscuss(changeToEnglish)
+proposal: %tellanswer $themeanswer ^goto(loop)
+proposal: %actr ^rand["Oh, ich bekomme gerade Input von ACT-R, meinem kognitiven Model" "Mein kognitives Modell meldet sich"] ^execute(myExecutor, explain)
+proposal: %male ^rand["Sie sind männlich, denke ich" "Ich vermute, Sie sind ein Mann" "Sie sind vermutlich ein Mann"] ^execute(myExecutor, ask)
+proposal: %female ^rand["Sie sind weiblich, nehme ich an" "Ich vermute, Sie sind eine Frau" "Ich denke, Sie sind eine Frau"] ^execute(myExecutor, ask)
+proposal: %calm ^rand["Sie sind ruhig"]
+proposal: %excited ^rand["Sie sind aufgeregt"]
+proposal: %firstmood ^rand["Sie sind ruhig und freuen sich"]
+
+####################################################################################################
+#
+#   WÖRTERBUCH: MENSCH -> PEPPER
+#
+####################################################################################################
+
+concept:(checking_intention) ["Reisepass beantragen"]
+
+# -----
+concept:(human_greeting) [Hallo "Guten Morgen" Morgen Mahlzeit Nabend "Guten Abend" "Grüß dich" "Grüß Gott" Tag "Guten Tag" "Na" "Na Du" Moin "Moin Moin" Moinmoin Moinsen]
+concept:(affirmation) [Ja Gerne Gern Bitte Unbedingt "Ja bitte" Genau]
+concept:(denial) [Nein Nö "Möchte {ich} nicht" Nee]
+concept:(thanks) [Danke "Vielen Dank" "Danke sehr" "Herzlichen Dank" "Danke schön"]
+concept:(bye) ["Es reicht" "{Auf} Wiedersehen" Tschüss]
+
+concept:(good) [Gut "Das {war} {ist} gut" Prima Toll]
+concept:(bad) [Schlecht "Das {war} {ist} schlecht" "{Wie} blöd" Mist Doof]
+
+concept:(do_not_include) [Pepper Robot Roboter]
+concept:(stop_talking) [Stop "Halt die Klappe"]
+concept:(translate) [Übersetz Übersetze Übersetzen Übersetzung "Auf englisch" "In englisch"]
+concept:(easy_language) ["Einfache Sprache" "Leichte Sprache" "{Ich} verstehe nicht" "Kapiere {ich} nicht" "In einfacher Sprache"]
+
+####################################################################################################
+#
+#   WÖRTERBUCH: PEPPER -> MENSCH
+#
+####################################################################################################
+
+concept:(pepper_greeting) ^rand[Hallo "Guten Tag" Hi "Moin Moin" Moin]
+concept:(thinking) ^rand["Lassen Sie mich überlegen" "Einen Moment bitte" "Gute Frage" "Kein Problem"]
+concept:(you_are_welcome) ^rand["Gern geschehen" "Bitte gern" "Gern" "Kein Problem"]
+concept:(byebye) ^rand["Auf Wiedersehen" Tschüss]
+concept:(new_question) ^rand["Möchten Sie vielleicht noch etwas wissen?" "Kann ich Ihnen sonst noch helfen?" "Kann ich noch etwas für Sie tun?" "Möchten Sie noch mehr wissen?" "Was möchten Sie sonst noch wissen?" "Was kann ich noch für Sie tun?"]
+
+concept:(robo_good) ^rand["Das freut mich" "Da bin ich froh"]
+concept:(robo_bad) ^rand["Oh \pau=800\ das tut mir leid" "Manchmal mache ich Fehler" "Da lag ich wohl falsch" "Oh \pau=600\ da muss ich wohl noch etwas lernen"]
+
+concept:(was_right) ^rand["Dann hatte ich recht" "Dann lag ich richtig" Gut]
+concept:(was_wrong) ^rand["Oh, tut mir leid. Ich will versuchen es beim nächsten mal besser zu machen." "Schade, dann habe ich mich geirrt" "Beim nächsten Versuch schaffe ich es vielleicht"]
+
+concept:(happy) ^rand["Das freut mich" "Da bin ich froh" "Das gefällt mir" "Das ist toll"]
+concept:(sad) ^rand[Oh "Das tut mir leid" "Tut mir leid" "Wie schade" "Das ist nicht schön"]
+
+####################################################################################################
+#
+#   DIALOGLOGIK
+#
+####################################################################################################
+
+u:(e:Dialog/NotUnderstood) Das habe ich nicht verstanden.
+u:(e:Dialog/SpeakFailure) Das kann ich leider nicht beantworten.
+u:(e:Dialog/Fallback) Fallback ausgelöst.
+
+# neutral
+u:({*}) %checking_intention ^execute(myExecutor, g14)
+    u1:({*} ~checking_intention {*}) Sie wollen also einen neuen Reisepass beantragen. Dabei bin ich Ihnen gerne behilflich. ^execute(myExecutor, checkingIntention)
+# content
+u:({*}) %checking_intention_content Wie kann ich Ihnen helfen? ^execute(myExecutor, g2)
+    u1:({*} ~checking_intention {*}) Sie wollen also einen neuen Reisepass beantragen. Auf Reisen zu gehen ist etwas tolles. Da werde ich ganz neidisch. Natürlich helfe ich Ihnen gerne, einen neuen Reisepass zu beantragen. ^execute(myExecutor, checkingIntention)
+# joyful
+u:({*}) %checking_intention_joyful Wie kann ich Ihnen helfen? ^execute(myExecutor, g8)
+    u1:({*} ~checking_intention {*}) Sie wollen also einen neuen Reisepass beantragen. Da sind Sie bei mir genau richtig! Es muss so schön sein, auf Reisen zu gehen. Vielleicht kann ich eines Tages ja auch mal in andere Länder reisen. ^execute(myExecutor, checkingIntention)
+# sad
+u:({*}) %checking_intention_sad Wie kann ich Ihnen helfen? ^execute(myExecutor, g17)
+    u1:({*} ~checking_intention {*}) Sie wollen also einen neuen Reisepass beantragen. Ich bin mir sicher, dass wir das gemeinsam schaffen. ^execute(myExecutor, checkingIntention)
+# angry
+u:({*}) %checking_intention_angry Wie kann ich Ihnen helfen? ^execute(myExecutor, g20)
+    u1:({*} ~checking_intention {*}) Sie wollen also einen neuen Reisepass beantragen. Ich werde alles in meiner Machtstehende tun, um Ihnen behilflich zu sein. ^execute(myExecutor, checkingIntention)
+
+# ------
+# neutral
+u:(~affirmation) %intention_answer welche Dokumente Sie für die Beantragung eines neuen Reisepasses benötigen?
+    u1:(~affirmation) Gut, geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+    u1:(~denial) Gut, geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+
+u:(~affirmation) %checking_requirements Haben Sie ein biometrisches Passbild dabei?
+    u1:(~affirmation) Haben Sie auch das Dokument Geburtsurkunde dabei?
+        u2:(~affirmation) Haben Sie einen gültigen Personalausweis mit?
+            u3:(~affirmation) Sie haben also alle notwendigen Dokumente dabei. Sehr gut, als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+            u3:(~denial) Können Sie Ihren alten Reisepass vorzeigen?
+                u4:(~affirmation) Hat der Reisepass noch Gültigkeit?
+                u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass obligatorisch.
+                    u5:(~affirmation) Sie haben also alle notwendigen Dokumente dabei. Sehr gut, als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                    u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass obligatorisch. ^execute(myExecutor, checkingRequirementsP)
+        u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass obligatorisch. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Sie haben also die Passbilder vergessen. Wenn Sie dennoch heute ihren neuen Reisepass beantragen wollen, könnten Sie nebenan in der Fotokabine biometrische Passbilder anfertigen lassen und wieder zu mir zurück kommen, damit ich Sie an die nächste verfügbare Fachkraft weiterleiten kann. ^execute(myExecutor, requirementsCheckC)
+
+#u:(~affirmation) %welcome_back Konnten Sie die biometrischen Passbilder machen lassen? ^execute(myExecutor, g15)
+u:(~affirmation) %welcome_back Konnten Sie die biometrischen Passbilder machen lassen?
+    #u1:(~affirmation) Sehr gut, dann werde ich Sie nun an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+    u1:(~affirmation) Sehr gut. Haben Sie auch das Dokument Geburtsurkunde dabei?
+       u2:(~affirmation) Haben Sie einen gültigen Personalausweis mit?
+           u3:(~affirmation) Sie haben also alle notwendigen Dokumente dabei. Sehr gut, als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+           u3:(~denial) Können Sie Ihren alten Reisepass vorzeigen?
+               u4:(~affirmation) Hat der Reisepass noch Gültigkeit?
+               u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass obligatorisch.
+                   u5:(~affirmation) Sie haben also alle notwendigen Dokumente dabei. Sehr gut, als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                   u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass obligatorisch. ^execute(myExecutor, checkingRequirementsP)
+       u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass obligatorisch. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Leider konnte Ihr Anliegen nicht erledigt werden. ^execute(myExecutor, checkingRequirementsP)
+# -----
+# content
+u:(~affirmation) %intention_answer_content welche Dokumente Sie für die Beantragung eines neuen Reisepasses benötigen?
+    u1:(~affirmation) Sehr gut, geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+    u1:(~denial) Sehr gut, geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+
+u:(~affirmation) %checking_requirements_content Haben Sie ein biometrisches Passbild dabei?
+    u1:(~affirmation) Haben Sie auch ihre Geburtsurkunde dabei?
+        u2:(~affirmation) Haben Sie ihren gültigen Personalausweis mit?
+            u3:(~affirmation) Hervorragend, Sie haben also alle notwendigen Dokumente dabei. Dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+            u3:(~denial) Haben Sie ihren alten Reisepass dabei?
+                u4:(~affirmation) Ist ihr alter Reisepass noch gültig?
+                u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig.
+                    u5:(~affirmation) Hervorragend, Sie haben also alle notwendigen Dokumente dabei. Dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                    u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+        u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Sie haben leider keine Passbilder mit dabei. Wenn Sie dennoch heute ihren neuen Reisepass beantragen wollen, könnten Sie nebenan in der Fotokabine biometrische Passbilder anfertigen lassen und wieder zu mir zurück kommen, damit ich Sie an die nächste verfügbare Fachkraft weiterleiten kann. ^execute(myExecutor, requirementsCheckC)
+
+#u:(~affirmation) %welcome_back_content Ich hoffe, es gab keine Probleme. Konnten Sie die biometrischen Passbilder machen lassen? ^execute(myExecutor, g4)
+u:(~affirmation) %welcome_back_content Ich hoffe, es gab keine Probleme. Konnten Sie die biometrischen Passbilder machen lassen?
+    #u1:(~affirmation) Fantastisch, dann werde ich Sie nun an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+    u1:(~affirmation) Fantastisch, haben Sie auch ihre Geburtsurkunde dabei?
+        u2:(~affirmation) Haben Sie ihren gültigen Personalausweis mit?
+            u3:(~affirmation) Hervorragend, Sie haben also alle notwendigen Dokumente dabei. Dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+            u3:(~denial) Haben Sie ihren alten Reisepass dabei?
+                u4:(~affirmation) Ist ihr alter Reisepass noch gültig?
+                u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig.
+                    u5:(~affirmation) Hervorragend, Sie haben also alle notwendigen Dokumente dabei. Dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                    u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+        u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Leider konnte Ihr Anliegen nicht erledigt werden. ^execute(myExecutor, checkingRequirementsP)
+# -----
+# joyful
+u:(~affirmation) %intention_answer_joyful was Sie für einen neuen Reisepass benötigen?
+    u1:(~affirmation) Galaktisch, es geht doch nichts über eine gute Vorbereitung. Ich werde mir auch mal soeben ins Gedächtnis rufen, was wir für die Beantragung eines Reisepasses benötigen. ^execute(myExecutor, retrievingRequirements)
+    u1:(~denial) Müssen Sie ja auch nicht, dafür haben Sie mich ja - ihren fröhlichen Pepper. Ich werde mir auch mal soeben ins Gedächtnis rufen, was wir für die Beantragung eines Reisepasses benötigen. ^execute(myExecutor, retrievingRequirements)
+
+u:(~affirmation) %checking_requirements_joyful Lassen Sie uns das einmal nach und nach durchgehen. Haben Sie ihr biometrisches Passbild dabei?
+    u1:(~affirmation) Haben Sie eine Geburtsurkunde auch mit am Start?
+        u2:(~affirmation) Das läuft ja super. Haben Sie auch einen gültigen Personalausweis mit dabei?
+            u3:(~affirmation) Galaktisch, Sie haben ja alle notwendigen Dokumente dabei! Das ist gut, dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+            u3:(~denial) Haben Sie ihren alten Reisepass dabei?
+                u4:(~affirmation) Ist ihr Reisepass denn auch noch gültig?
+                u4:(~denial) Wie schade, ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. Dann sehen wir uns einfach nochmal wieder, wenn Sie alles mit haben.
+                    u5:(~affirmation) Galaktisch, Sie haben ja alle notwendigen Dokumente dabei. Dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Da Sie hier so gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                    u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+        u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Ich verstehe. Sie haben also Ihr Passbild vergessen. Am liebsten würde ich jetzt ein Bild von Ihnen machen, aber das muss Biometrisch sein. Das kann ich leider noch nicht. Aber Sie können einfach nebenan in der Fotokabine ein biometrisches Passbild anfertigen lassen und dann fröhlich zu mir zurück kommen. Passbilder aus der Fotokabine sind zwar oft keine Meisterwerke, aber dann könnte ich Sie immerhin noch heute im Anschluss an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, requirementsCheckC)
+
+#u:(~affirmation) %welcome_back_joyful Konnten Sie die biometrischen Passbilder machen lassen? ^execute(myExecutor, g21)
+u:(~affirmation) %welcome_back_joyful Konnten Sie die biometrischen Passbilder machen lassen?
+    #u1:(~affirmation) Sehr gut, dann werde ich Sie ohne weitere Verzögerung an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+    u1:(~affirmation) Sehr gut, haben Sie eine Geburtsurkunde auch mit am Start?
+       u2:(~affirmation) Das läuft ja super. Haben Sie auch einen gültigen Personalausweis mit dabei?
+           u3:(~affirmation) Galaktisch, Sie haben ja alle notwendigen Dokumente dabei! Das ist gut, dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Als nächstes werde ich Sie an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+           u3:(~denial) Haben Sie ihren alten Reisepass dabei?
+               u4:(~affirmation) Ist ihr Reisepass denn auch noch gültig?
+               u4:(~denial) Wie schade, ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. Dann sehen wir uns einfach nochmal wieder, wenn Sie alles mit haben.
+                   u5:(~affirmation) Galaktisch, Sie haben ja alle notwendigen Dokumente dabei. Dann steht der Beantragung ihres neuen Reisepasses nichts mehr im Weg. Da Sie hier so gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                   u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+       u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Leider konnte Ihr Anliegen nicht erledigt werden. ^execute(myExecutor, checkingRequirementsP)
+# -----
+# sad
+u:(~affirmation) %intention_answer_sad welche Dokumente Sie für die Beantragung eines neuen Reisepasses benötigen?
+    u1:(~affirmation) Das ist toll und wird uns einiges an Zeit sparen. Geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+    u1:(~denial) Das ist toll und wird uns einiges an Zeit sparen. Geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+
+u:(~affirmation) %checking_requirements_sad Haben Sie ein biometrisches Passbild dabei?
+    u1:(~affirmation) Klasse und haben Sie auch ihre Geburtsurkunde dabei?
+        u2:(~affirmation) Bis hier hin läuft alles wunderbar. Haben Sie auch an einen gültigen Personalausweis gedacht und mit dabei?
+            u3:(~affirmation) Sehr gut, Sie haben alle notwendigen Dokumente dabei. Da Sie hier so gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+            u3:(~denial) okay, das ist nicht schlimm. Haben Sie denn ihren alten Reisepass mit?
+                u4:(~affirmation) Ist ihr Reisepass noch gültig?
+                u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig.
+                    u5:(~affirmation) Sehr gut, Sie haben also alle notwendigen Dokumente dabei. Da Sie hier so super gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                    u5:(~denial) Sie haben an vieles gedacht, nur leider liegt nun kein gültiges Ausweisdokument vor. Dieses Dokument ist zum Thema Reisepass nötig. Wir finden einen Ersatztermin. ^execute(myExecutor, checkingRequirementsP)
+        u2:(~denial) Die Geburtsurkunde ist nicht mit dabei, wird aber leider benötigt zum Thema Reisepass. Auf ihren neuen Besuch mit Geburtsurkunde dabei, freue ich mich. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Ich verstehe. Sie haben also keine Passbilder mit. Das kann jedem passieren. Das ist allerdings kein großes Problem. Nebenan können Sie nämlich in der Fotokabine biometrische Passbilder anfertigen lassen und dann zu mir zurück kommen. Dann könnte ich Sie heute noch im Anschluss an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, requirementsCheckC)
+
+#u:(~affirmation) %welcome_back_sad Konnten Sie die biometrischen Passbilder machen lassen? ^execute(myExecutor, g21)
+u:(~affirmation) %welcome_back_sad Konnten Sie die biometrischen Passbilder machen lassen?
+    #u1:(~affirmation) Fantastisch, dann werde ich Sie nun an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+    u1:(~affirmation) Fantastisch, haben Sie auch ihre Geburtsurkunde dabei?
+        u2:(~affirmation) Bis hier hin läuft alles wunderbar. Haben Sie auch an einen gültigen Personalausweis gedacht und mit dabei?
+            u3:(~affirmation) Sehr gut, Sie haben alle notwendigen Dokumente dabei. Da Sie hier so gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+            u3:(~denial) okay, das ist nicht schlimm. Haben Sie denn ihren alten Reisepass mit?
+                u4:(~affirmation) Ist ihr Reisepass noch gültig?
+                u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig.
+                    u5:(~affirmation) Sehr gut, Sie haben also alle notwendigen Dokumente dabei. Da Sie hier so super gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                    u5:(~denial) Sie haben an vieles gedacht, nur leider liegt nun kein gültiges Ausweisdokument vor. Dieses Dokument ist zum Thema Reisepass nötig. Wir finden einen Ersatztermin. ^execute(myExecutor, checkingRequirementsP)
+        u2:(~denial) Die Geburtsurkunde ist nicht mit dabei, wird aber leider benötigt zum Thema Reisepass. Auf ihren neuen Besuch mit Geburtsurkunde dabei, freue ich mich. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Leider konnte Ihr Anliegen nicht erledigt werden. ^execute(myExecutor, checkingRequirementsP)
+# -----
+# angry
+u:(~affirmation) %intention_answer_angry welche Dokumente Sie für die Beantragung eines neuen Reisepasses benötigen?
+    u1:(~affirmation) In Ordnung, das wird uns einiges an Zeit sparen. Geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+    u1:(~denial) In Ordnung, das wird uns einiges an Zeit sparen. Geben Sie mir bitte einen Augenblick. Ich rufe soeben ab, welche Unterlagen für die Beantragung eines Reisepasses notwendig sind. ^execute(myExecutor, retrievingRequirements)
+
+u:(~affirmation) %checking_requirements_angry Haben Sie ein biometrisches Passbild dabei?
+    u1:(~affirmation) Haben Sie ihre Geburtsurkunde mit?
+        u2:(~affirmation) Noch eine Frage. Haben Sie einen gültigen Personalausweis mit?
+            u3:(~affirmation) Sehr gut, Sie haben also alle notwendigen Dokumente dabei. Da Sie hier so gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+            u3:(~denial) Ich gebe mein Bestes, ihnen zu helfen. Haben Sie ihren alten Reisepass dabei?
+                u4:(~affirmation) Ist ihr Reisepass noch gültig?
+                u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig.
+                    u5:(~affirmation) Danke für Ihre kooperative Mitarbeit. Sie haben alle notwendigen Dokumente dabei. Ich werde Sie schnellstmöglich an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                    u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+        u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Es sind keine Passbilder dabei. Das ist nicht zwingend ein Problem. Wenn Sie dennoch heute ihren neuen Reisepass beantragen wollen, würde ich Sie bitten nebenan in der Fotokabine biometrische Passbilder anfertigen zu lassen und wieder zu mir zurück zu kommen, damit ich Sie an die nächste verfügbare Fachkraft weiterleiten kann. ^execute(myExecutor, requirementsCheckC)
+
+#u:(~affirmation) %welcome_back_angry Konnten Sie die biometrischen Passbilder machen lassen? ^execute(myExecutor, g21)
+u:(~affirmation) %welcome_back_angry Konnten Sie die biometrischen Passbilder machen lassen?
+    #u1:(~affirmation) Sehr gut, dann werde ich Sie ohne weitere Verzögerung an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+    u1:(~affirmation) Sehr gut. Haben Sie ihre Geburtsurkunde mit?
+       u2:(~affirmation) Noch eine Frage. Haben Sie einen gültigen Personalausweis mit?
+           u3:(~affirmation) Sehr gut, Sie haben also alle notwendigen Dokumente dabei. Da Sie hier so gut vorbereitet hergekommen sind, kann ich Sie direkt an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+           u3:(~denial) Ich gebe mein Bestes, ihnen zu helfen. Haben Sie ihren alten Reisepass dabei?
+               u4:(~affirmation) Ist ihr Reisepass noch gültig?
+               u4:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig.
+                   u5:(~affirmation) Danke für Ihre kooperative Mitarbeit. Sie haben alle notwendigen Dokumente dabei. Ich werde Sie schnellstmöglich an die nächste verfügbare Fachkraft weiterleiten. ^execute(myExecutor, checkingRequirementsZwei)
+                   u5:(~denial) Ein gültiges Ausweisdokument liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+       u2:(~denial) Eine Geburtsurkunde liegt nicht vor. Leider ist dieses Dokument zum Thema Reisepass notwendig. ^execute(myExecutor, checkingRequirementsP)
+    u1:(~denial) Danke für Ihre Geduld und Mitarbeit. Leider konnte Ihr Anliegen aufgrund fehlender Unterlagen nicht erledigt werden. ^execute(myExecutor, checkingRequirementsP)
+
+u:(~bye) ~byebye
+u:(~thanks) ~you_are_welcome
+
+# -----
+#u:(_*) %loop $theme=$1
+
+#u:(~human_greeting) ~pepper_greeting $theme=act-r
+#u:(~human_greeting) ~pepper_greeting ^execute(myExecutor, hello)
+#u:({~robot} kognitives Modell {~do_not_include}) %loop $theme=act-r
+
+#u:("e:themeanswer $steering==seehuman") $themeanswer \pau=1000\ Habe ich recht?
+#    u1:(~affirmation *) ~was_right pau ~happy
+#    u1:(~denial *) ~was_wrong
+
+#u:({~robot} _* {~do_not_include}) %loop $theme=$1
+#u:("e:themeanswer") $themeanswer
+#u:("e:themeanswer $theme<>easyLanguage $theme<>translate $theme<>answered") $themeanswer $steering="gptAnswerDE"
+
+#u:({*} ~translate {*} $theme<>translate) %translate ^rand["Aber gern" Gern "Kein Problem"] $theme=translate
+#u:("e:themeanswer $theme==translate") ^endDiscuss(changeToEnglish)
+#u:({*} ~translate {*} $theme==translate) ^rand["Das habe ich bereits übersetzt" "Schon geschehen" "Habe ich gerade gemacht"]

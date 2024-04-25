@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name" translatable="false">ACT-R Demo</string>
+    <string name="button_start" translatable="false">Start</string>
+    <string name="button_easy" translatable="false">Leichte Sprache</string>
+    <string name="button_translate" translatable="false">English</string>
+    <string name="image_description" translatable="false">Pepper</string>
+    <string name="logo_description" translatable="false">Universität zu Lübeck</string>
+    <string name="claim_text" translatable="false">Institut für Informationssysteme</string>
+    <string name="flag_de" translatable="false">Deutsch</string>
+    <string name="flag_en" translatable="false">English</string>
+    <string name="stop_talking" translatable="false">Shut up</string>
+    <string name="stop_listening" translatable="false">Don\'t listen</string>
+    <string name="start_listening" translatable="false">Listen again</string>
+    <string name="thinking" translatable="false">Cogito ergo sum</string>
+    <string name="thinking_tooltip" translatable="false">Cogito ergo sum</string>
+    <string name="flag_de_tooltip" translatable="false">Konversation auf Deutsch</string>
+    <string name="flag_en_tooltip" translatable="false">Conversation in English</string>
+    <string name="stop_talking_tooltip" translatable="false">Shut up</string>
+    <string name="stop_listening_tooltip" translatable="false">Don\'t listen</string>
+    <string name="start_listening_tooltip" translatable="false">Listen again</string>
+    <string name="intro_flags" translatable="false">Bitte wählen Sie Ihre Sprache / Please choose your language</string>
+    <string name="intro_listening" translatable="false">Momentan kann ich Sie nicht hören, bitte Button drücken\nI can\'t hear you right now, please click the button</string>
+    <string name="intro_welcome" translatable="false">Pepper, der soziale und kognitive Roboter</string>
+</resources>
